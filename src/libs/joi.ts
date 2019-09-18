@@ -1,9 +1,9 @@
 import  joi  from "@hapi/joi";
-import  { User } from "../models/User";
+import  { IUser } from "../models/User";
 
 
 
-    const schema = joi.object({
+    const schemaR = joi.object({
         username: joi.string()
             .min(6)
             .required(),
@@ -15,7 +15,16 @@ import  { User } from "../models/User";
             .required()
     })
 
-    export default schema
+    const schemaL = joi.object({
+        email: joi.string()
+            .min(6)
+            .required(),
+        password: joi.string()
+            .min(6)
+            .required()
+    })
+
+    export { schemaL, schemaR }
 
 
 

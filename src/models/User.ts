@@ -28,11 +28,11 @@ const User =  new Schema({
 
 
 
-export interface User extends Document {
+export interface IUser extends Document {
     username: string,
     email: string,
     password: string,
     date: Date
 }
 
-export default model<User>('User', User)
+export default model<IUser>('User', User)

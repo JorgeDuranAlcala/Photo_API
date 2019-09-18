@@ -34,7 +34,11 @@
   "dependencies": {
     "@hapi/joi": "^16.1.1",
     "@types/bcrypt": "^3.0.0",
+    "@types/dotenv": "^6.1.1",
     "@types/hapi__joi": "^15.0.4",
-    "bcrypt": "^3.0.6"
+    "@types/jsonwebtoken": "^8.3.4",
+    "bcrypt": "^3.0.6",
+    "dotenv": "^8.1.0",
+    "jsonwebtoken": "^8.5.1"
   }
 }
