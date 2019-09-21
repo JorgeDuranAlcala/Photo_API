@@ -12,10 +12,9 @@ export async function getPhoto(req:Request, res: Response): Promise<Response> {
 
     const photo = await Photo.findById(id, err => console.log(err))
 
-    return res.json({
-        message: 'Here is your photo',
+    return res.json(
         photo
-    })
+    )
 }
 
 export async function addPhoto(req:Request, res: Response): Promise<Response> {
