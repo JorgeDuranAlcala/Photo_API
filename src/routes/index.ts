@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { allPhotos, addPhoto, getPhoto, deletePhoto, updatePhoto } from "../controllers/photos.control";
 import multer from "../libs/multer";
+import multerUpdate from "../libs/multerUpdate"
 const router = Router()
 
 router.route('/photos')
@@ -10,7 +11,7 @@ router.route('/photos')
 router.route('/photos/:id')
 .get(getPhoto)
 .delete(deletePhoto)
-.put(updatePhoto)
+.put(multerUpdate.single('image'), updatePhoto)
 
 
 export default router
