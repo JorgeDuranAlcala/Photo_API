@@ -53,11 +53,11 @@ export async function deletePhoto(req:Request, res: Response): Promise<Response>
         const { id } = req.params;
         const { title, description} = req.body
         const { path } = req.file
+
         try {
-            const updated = await Photo.findByIdAndUpdate(id, { title, description, path } ,err => console.log(err))
-            return res.json(
-                updated
-                )
+            const photo = { title, description, imagePath: path }
+            const updated = await Photo.findByIdAndUpdate(id, photo ,err => console.log(err))
+            return res.json(updated)
         } catch(error) {
             console.log(error)
         }
