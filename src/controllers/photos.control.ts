@@ -51,15 +51,20 @@ export async function deletePhoto(req:Request, res: Response): Promise<Response>
     export async function updatePhoto(req:Request,res:Response) {
     
         const { id } = req.params;
-        const { title, description} = req.body
-        const { path } = req.file
-
-        try {
-            const photo = { title, description, imagePath: path }
-            const updated = await Photo.findByIdAndUpdate(id, photo ,err => console.log(err))
-            return res.json(updated)
-        } catch(error) {
-            console.log(error)
-        }
-
+        let { title, description} = req.body
+        console.log(title, description)
+        const h = req.file
+        let imgP
+        const f = await Photo.findById(id)
+            if (h === undefined || h === null ) {
+                for(let key in f) {
+                    imgP = f.get('imagePath')
+                    const updated = await Photo.findByIdAndUpdate(id, { title, description, imagePath: imgP }, err => console.log(err))
+                    return res.json(updated)
+                }
+            } else {
+                imgP = req.file.path
+                const updated = await Photo.findByIdAndUpdate(id, { title, description , imagePath: imgP  } ,err => console.log(err))
+                return res.json({ updated, imgP })  
+            }
 }
