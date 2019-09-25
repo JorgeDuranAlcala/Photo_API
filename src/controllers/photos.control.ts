@@ -52,7 +52,6 @@ export async function deletePhoto(req:Request, res: Response): Promise<Response>
     
         const { id } = req.params;
         let { title, description} = req.body
-        console.log(title, description)
         const h = req.file
         let imgP
         const f = await Photo.findById(id)
