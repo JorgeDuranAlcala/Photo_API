@@ -3,9 +3,7 @@ import User from "../models/User";
 import { schemaL, schemaR } from "../libs/joi";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 
-//dotenv.config()
 
 export async function registerUser(req:Request, res: Response) {
 
@@ -32,12 +30,15 @@ export async function registerUser(req:Request, res: Response) {
             email: req.body.email,
             password: hashPassword
         })
-        const saveUser = await user.save()
-    
-        return res.json({
-            saveUser,
-            message:`You already are logged`
-        })
+        const newUser = await user.save()
+            
+            
+                const token = jwt.sign({ _id: newUser._id } , `${process.env.TOKEN_SECRET}`)
+                return res.json({
+                    newUser,
+                    token
+                })
+        
        
 }
 
@@ -54,18 +55,13 @@ export async function loginUser(req: Request, res: Response): Promise<Response> 
      const user = await User.findOne({ email: req.body.email })
      if(!user) return res.status(400).json({ message: `Email doesn't exist`})
 
-     // COMPARE PASSWORDS
-
+    // COMPARE PASS
     const match = await bcrypt.compare(req.body.password, user.password)
     if(!match) return res.status(400).send({ message: `This password is wrong` })
 
-    // CREATE AND ASSIGN A TOKEN
 
     const token = jwt.sign({ _id: user._id }, `${process.env.TOKEN_SECRET}`)
-    res.header('auth-token', token)
 
-     return res.json({
-        message: `logged in`
-    }) 
+     return res.json({token}) 
 }
 
