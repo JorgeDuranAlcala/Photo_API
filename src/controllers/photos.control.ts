@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import Photo from "../models/Photo";
 
+
 export async function allPhotos(req:Request, res: Response): Promise<Response> {
     const photo = await Photo.find();
-    return res.send(photo)
+    return res.json(photo)
 }
 
 export async function getPhoto(req:Request, res: Response): Promise<Response> {
@@ -17,13 +18,13 @@ export async function getPhoto(req:Request, res: Response): Promise<Response> {
     )
 }
 
-export async function addPhoto(req:Request, res: Response): Promise<Response> {
+export async function addPhoto(req:Request | any, res: Response): Promise<Response> {
     const { title, description } = req.body;
-
     const file = {
         title: title,
         description: description,
-        imagePath: req.file.path
+        imagePath: req.file.path,
+        user: req["user_id"]
     }
 
     const newPhoto = new Photo(file)

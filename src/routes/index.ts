@@ -7,7 +7,7 @@ const router = Router()
 
 router.route('/photos')
 .get(verifyToken,allPhotos)
-.post(multer.single('image'), addPhoto)
+.post(verifyToken,multer.single('image'), addPhoto)
 
 router.route('/photos/:id')
 .get(getPhoto)

@@ -3,6 +3,7 @@ import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path"
+import dotenv from "dotenv";
 import router from "./routes";
 import routerUsers from "./routes/users_auth";
 
@@ -14,7 +15,8 @@ const app = express();
 
 // settings
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3100 || process.env._PORT);
+dotenv.config()
 
 // middlewares
 

@@ -4,7 +4,8 @@ const Photo = new Schema({
     title: String,
     description: String,
     imagePath: String,
-    created_at: { type: Date, default: Date.now() }
+    created_at: { type: Date, default: Date.now() },
+    user: String
 })
 
 interface Iphoto extends Document {
@@ -12,6 +13,7 @@ interface Iphoto extends Document {
     description: string,
     imagePath: string,
     created_at: Date,
+    user: string
 }
 
 export default model<Iphoto>('Photo', Photo);

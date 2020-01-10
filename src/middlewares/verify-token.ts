@@ -1,5 +1,12 @@
 import { Request, Response ,NextFunction } from "express";
+import { Express } from 'express';
 import jwt from "jsonwebtoken";
+
+interface IPayload {
+    _id: string,
+    iat: number
+}
+
 
 export default function verifyToken(req: Request | any, res: Response, next: NextFunction ) {
 
@@ -9,10 +16,10 @@ export default function verifyToken(req: Request | any, res: Response, next: Nex
     let token = req.headers.authorization.split(' ')[1]
     if(token === 'null') return res.status(401).send('Unauthorized Request')
 
-     const verified: string | any = jwt.verify(token, `${process.env.TOKEN_SECRET}`);
-    if(!verified) return res.status(401).send('Unauthorized Request')
+     const payload = jwt.verify(token, `${process.env.TOKEN_SECRET}`) as IPayload;
+    if(!payload) return res.status(401).send('Unauthorized Request')
     
-    req.userId = verified._id
+    req.user_id = payload._id
 
     return next()
 }
