@@ -10,7 +10,7 @@ export async function allPhotos(req:Request, res: Response): Promise<Response> {
 export async function getPhotoUser(req:Request | any, res: Response): Promise<Response> {
 
         const user = req.user_id;
-        console.log(user)
+        
         const photoU = await Photo.find({user});
 
         return res.json(photoU)
