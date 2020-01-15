@@ -1,9 +1,9 @@
 import { Response, Request } from "express";
 import User from "../models/User";
 
-export default async function post(req:Request, res: Response): Promise<Response> {
+export default async function post(req:Request | any, res: Response): Promise<Response> {
     
-    const id = req.body.user._id
+    const id = req.user_id
     const user = await User.findOne({ _id: id })
 
     return res.json({
