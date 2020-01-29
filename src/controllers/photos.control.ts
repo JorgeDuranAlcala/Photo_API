@@ -119,8 +119,10 @@ export async function deletePhoto(req:Request, res: Response): Promise<Response>
                 //  IF THERES'S A PHOTO ON REQ
 
                 imgP = req.file.path;
-                console.log(f.imagePath)
                 
+                fs.unlink(f.imagePath, e => {
+                    if(e) throw e;
+                })
 
                 if(description === '' && title === '' || title === null && description === null)
                     
