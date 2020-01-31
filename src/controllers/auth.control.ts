@@ -38,8 +38,16 @@ export async function registerUser(req:Request, res: Response) {
                     newUser,
                     token
                 })
-        
        
+}
+
+export async function getProfile(req: Request | any, res: Response): Promise<Response> {
+
+        const userId = req.user_id;
+        
+        const user = await User.findOne({_id: userId},{password: 0}, e => console.log(e))
+        
+        return res.status(200).send(user)
 }
 
 export async function loginUser(req: Request, res: Response): Promise<Response> {

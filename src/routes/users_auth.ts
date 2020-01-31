@@ -1,15 +1,15 @@
 import { Router } from "express"
-import { registerUser, loginUser } from "../controllers/auth.control"
-import post from "../controllers/post.control"
-import verify from "../controllers/verify.control"
+import { registerUser, loginUser, getProfile } from "../controllers/auth.control"
 import verifyToken from "../middlewares/verify-token"
 const router = Router()
 
-router.route('/post')
-.get(verifyToken,post)
+router.route('/profile')
+.get(verifyToken, getProfile)
 
 router.route('/register')
 .post(registerUser)
+
+
 
 router.route('/login')
 .post(loginUser)

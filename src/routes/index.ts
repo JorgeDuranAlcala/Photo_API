@@ -7,15 +7,16 @@ const router = Router()
 
 router.route('/photos')
 .get(allPhotos)
-.post(multer.single('image'), addPhoto)
+.post(verifyToken,multer.single('image'), addPhoto)
 
 router.route('/photos/user')
 .get(verifyToken,getPhotoUser)
 
+
 router.route('/photos/:id')
 .get(getPhoto)
 .delete(deletePhoto)
-.put(multerUpdate.single('image'), updatePhoto)
+.put(verifyToken,multerUpdate.single('image'), updatePhoto)
 
 
 export default router
